@@ -1,0 +1,121 @@
+# =============================================================================
+# CONFIGURACIÓN DE CODEX PARA EL CURSO QA AI-AUGMENTED
+# =============================================================================
+# Este archivo contiene únicamente opciones compartibles del proyecto.
+# Codex lo carga cuando se abre el repositorio como proyecto confiable
+# (trusted). Las preferencias personales y dependientes de cada equipo, como
+# el modelo, el proveedor o la configuración nativa de Windows, deben quedar
+# en ~/.codex/config.toml.
+#
+# Seguridad:
+# - No escribas tokens, API keys, contraseñas ni headers de autenticación aquí.
+# - El acceso de Atlassian se completa mediante OAuth y se almacena fuera del
+#   repositorio.
+# - Las credenciales de otros MCP deben permanecer en la configuración del
+#   usuario o en el mecanismo seguro correspondiente.
+
+# Solicita aprobación cuando una operación necesite salir de los límites del
+# sandbox. Esto conserva autonomía para el trabajo local y mantiene el control
+# sobre acciones con mayor impacto.
+approval_policy = 'on-request'
+
+# Opciones disponibles:
+# - 'untrusted': ejecuta automáticamente solo comandos conocidos como seguros
+#   y solicita aprobación para los que no pertenecen a ese conjunto.
+# - 'on-request': solicita aprobación cuando una acción necesita ampliar los
+#   permisos actuales. Es la opción activa.
+# - 'never': no solicita aprobaciones; la operación se ejecuta o falla dentro
+#   de los límites definidos por sandbox_mode.
+# - Configuración granular: usa una tabla inline para decidir por categoría si
+#   se permiten solicitudes de aprobación: sandbox_approval, rules,
+#   mcp_elicitations, request_permissions y skill_approval.
+# 'on-failure' está obsoleto; usa 'on-request' o 'never' según el flujo.
+
+# Permite leer el sistema y escribir únicamente dentro del workspace y de las
+# raíces autorizadas. No habilita acceso irrestricto al equipo.
+sandbox_mode = 'workspace-write'
+
+# Opciones disponibles:
+# - 'read-only': permite lectura; cualquier escritura queda fuera de los
+#   límites del sandbox.
+# - 'workspace-write': permite leer y escribir dentro del workspace y de las
+#   raíces autorizadas. Es la opción activa.
+# - 'danger-full-access': desactiva el aislamiento del sandbox y concede acceso
+#   amplio al equipo; implica un riesgo elevado y no se recomienda.
+
+# Usa el índice de búsqueda mantenido por OpenAI en lugar de consultar páginas
+# web en vivo por defecto. Reduce la exposición a contenido externo no confiable.
+web_search = 'cached'
+
+# Opciones disponibles:
+# - 'cached': usa resultados preindexados del caché de OpenAI. Es la opción
+#   activa y predeterminada.
+# - 'indexed': limita el acceso externo a lo permitido por el índice de
+#   búsqueda.
+# - 'live': consulta la web en vivo para obtener información más reciente.
+# - 'disabled': desactiva la herramienta de búsqueda web.
+
+# =============================================================================
+# MCP DE PLAYWRIGHT
+# =============================================================================
+[mcp_servers.playwright]
+command = 'npx'
+args = ['-y', '@playwright/mcp@latest']
+startup_timeout_sec = 30
+tool_timeout_sec = 120
+enabled = true
+required = false
+default_tools_approval_mode = 'writes'
+
+# Explicación del bloque:
+# - mcp_servers.playwright identifica este servidor con el nombre playwright.
+# - command ejecuta npx; requiere Node.js y npx disponibles en PATH.
+# - args usa -y para evitar la confirmación de instalación y ejecuta la versión
+#   vigente del servidor oficial, conservando sus capacidades predeterminadas.
+# - startup_timeout_sec concede hasta 30 segundos para resolver el paquete e
+#   iniciar el servidor, especialmente durante la primera ejecución.
+# - tool_timeout_sec permite hasta 120 segundos por interacción de navegador.
+# - enabled activa el servidor en las sesiones de este proyecto.
+# - required en false permite iniciar Codex aunque Playwright no esté disponible.
+# - default_tools_approval_mode en writes solicita aprobación para herramientas
+#   de escritura y permite las consultas de solo lectura.
+
+# =============================================================================
+# MCP DE ATLASSIAN ROVO: JIRA Y CONFLUENCE CLOUD
+# =============================================================================
+[mcp_servers.atlassian]
+url = 'https://mcp.atlassian.com/v1/mcp/authv2'
+auth = 'oauth'
+enabled = true
+required = false
+startup_timeout_sec = 30
+tool_timeout_sec = 60
+default_tools_approval_mode = 'writes'
+
+# Explicación del bloque:
+# - mcp_servers.atlassian identifica este servidor con el nombre atlassian.
+# - url apunta al endpoint Streamable HTTP oficial de Atlassian Rovo MCP.
+# - auth usa OAuth 2.1; la autorización se completa en el navegador y las
+#   credenciales se almacenan fuera de este repositorio.
+# - enabled activa el servidor en las sesiones de este proyecto.
+# - required en false permite iniciar Codex si OAuth está pendiente o el
+#   servicio de Atlassian no responde.
+# - startup_timeout_sec concede hasta 30 segundos para establecer la conexión.
+# - tool_timeout_sec limita cada herramienta de Atlassian a 60 segundos.
+# - default_tools_approval_mode en writes permite consultas de solo lectura y
+#   solicita aprobación antes de escribir en Jira o Confluence.
+# No se necesita instalar mcp-remote ni guardar tokens en este archivo.
+
+# =============================================================================
+# PUESTA EN MARCHA Y VERIFICACIÓN
+# =============================================================================
+# 1. Abre este repositorio en Codex y márcalo como proyecto confiable.
+# 2. Comprueba que Node.js y npx estén disponibles si usarás Playwright.
+# 3. Autoriza Atlassian desde una terminal abierta en este repositorio:
+#      codex mcp login atlassian
+# 4. Comprueba que ambos servidores sean reconocidos:
+#      codex mcp list
+#      codex mcp get playwright
+#      codex mcp get atlassian
+# 5. Reinicia la sesión de Codex después de configurar OAuth para que las
+#    herramientas nuevas aparezcan en el contexto de la sesión.

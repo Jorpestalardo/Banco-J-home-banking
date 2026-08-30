@@ -1,0 +1,81 @@
+# ─────────────────────────────────────────────────────────────
+#  .gitignore — Curso QA AI-Augmented
+#
+#  Lo que NO se ignora, y es a propósito:
+#
+#  · .context/          Es el contexto del proyecto: todo lo que los prompts
+#                       leen para trabajar, venga de donde venga (heredado,
+#                       generado por una fase o bajado de Jira). Se commitea
+#                       entera: tenerla sincronizada es el motivo por el que
+#                       usamos Git en este curso.
+#  · .env.example        Dice QUÉ credenciales hacen falta, nunca sus
+#                        valores. Es lo único que salva al que clona de
+#                        adivinar. El `.env` de verdad queda afuera.
+#  · *.template.json     Plantillas de configuración SIN credenciales.
+#    *.template.toml     Son material del curso.
+#  · *.postman_collection.json   Las colecciones se comparten.
+#                                Los *environments* no: llevan tokens.
+#
+#  Esto cubre lo que genera ESTE repositorio. El ruido de la herramienta
+#  de IA que use cada uno (Gemini, Codex, Antigravity, Copilot) vive en
+#  tu carpeta de usuario, no acá — para eso está el gitignore global:
+#      git config --global core.excludesFile ~/.gitignore_global
+# ─────────────────────────────────────────────────────────────
+
+# ── Credenciales ─────────────────────────────────────────────
+.env
+.env.*
+!.env.example
+*credencial*
+*credential*
+*.pem
+*.key
+claude_config.json
+mcp-config.json
+.mcp.json
+*.postman_environment.json
+
+# ── Estado local de las herramientas de IA ───────────────────
+.claude/settings.local.json
+CLAUDE.local.md
+.vscode/
+
+# ── macOS ────────────────────────────────────────────────────
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+
+# ── Windows ──────────────────────────────────────────────────
+Thumbs.db
+desktop.ini
+~$*
+
+# ── Salida de herramientas ───────────────────────────────────
+.playwright-mcp/
+test-results/
+playwright-report/
+node_modules/
+
+# ── Borradores ───────────────────────────────────────────────
+*.bak
+*.old
+
+# ── Skills de .claude/skills/ ────────────────────────────────
+# Casi todo lo que hay acá son ENLACES a .agents/skills/, que es donde
+# viven las skills de verdad. Git no los guarda como enlaces: subiría una
+# copia duplicada de cada skill. Así que se ignora todo por defecto y se
+# listan abajo las excepciones.
+#
+# Cada persona recrea sus enlaces al clonar, siguiendo
+# .guides/LLMs/claudeCode/claude-Code-skills-enlace.md
+#
+# ⚠️ Tiene que ser `.claude/skills/*` con asterisco, NO `.claude/skills/`.
+# Si se ignora el directorio, Git no entra a mirarlo y las líneas con `!`
+# de abajo dejan de tener efecto — sin avisar.
+.claude/skills/*
+
+# Excepciones: skills PROPIAS de Claude Code, que no son enlace y sí se
+# versionan. Al crear una, agregá su línea acá o queda fuera del repo.
+!.claude/skills/saludo-nombre-claude/

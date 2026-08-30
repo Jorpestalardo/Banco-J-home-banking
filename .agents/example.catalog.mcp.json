@@ -1,0 +1,163 @@
+{
+  "_meta": {
+    "purpose": "Catálogo de referencia de servidores MCP; no es un archivo ejecutable ni se carga automáticamente.",
+    "reviewedAt": "2026-08-24",
+    "enabledByDefault": false,
+    "usage": "Elegir solo los servidores necesarios y adaptar cada entrada al archivo nativo del cliente.",
+    "clientAdapters": {
+      "agy": {
+        "targetFile": ".agents/mcp_config.json",
+        "rootKey": "mcpServers",
+        "remoteEndpointKey": "serverUrl"
+      },
+      "codex": {
+        "targetFile": ".codex/config.toml",
+        "tablePrefix": "mcp_servers",
+        "remoteEndpointKey": "url",
+        "note": "Convertir las entradas elegidas de JSON a TOML."
+      },
+      "copilot": {
+        "targetFiles": [
+          ".mcp.json",
+          ".github/mcp.json"
+        ],
+        "rootKey": "mcpServers",
+        "remoteEndpointKey": "url",
+        "note": "GitHub ya está disponible como servidor integrado en Copilot CLI."
+      }
+    },
+    "security": [
+      "No guardar tokens ni credenciales en este archivo.",
+      "Resolver secretos desde variables de entorno o mediante OAuth.",
+      "Revisar permisos y alcance antes de habilitar un servidor con escritura."
+    ]
+  },
+  "mcpServers": {
+    "playwright": {
+      "transport": "stdio",
+      "command": "npx",
+      "args": [
+        "-y",
+        "@playwright/mcp@latest",
+        "--caps",
+        "vision,pdf",
+        "--timeout-action",
+        "10000",
+        "--timeout-navigation",
+        "30000",
+        "--ignore-https-errors",
+        "--isolated"
+      ],
+      "officialSource": "https://github.com/microsoft/playwright-mcp"
+    },
+    "devtools": {
+      "transport": "stdio",
+      "command": "npx",
+      "args": [
+        "-y",
+        "chrome-devtools-mcp@latest"
+      ],
+      "officialSource": "https://github.com/ChromeDevTools/chrome-devtools-mcp"
+    },
+    "supabase": {
+      "transport": "streamable-http",
+      "url": "https://mcp.supabase.com/mcp?project_ref=${SUPABASE_PROJECT_REF}&read_only=true",
+      "auth": "oauth",
+      "notes": [
+        "Mantener read_only=true como configuración inicial.",
+        "No conectar el servidor a datos de producción."
+      ],
+      "officialSource": "https://supabase.com/docs/guides/ai-tools/mcp"
+    },
+    "context7": {
+      "transport": "stdio",
+      "command": "npx",
+      "args": [
+        "-y",
+        "@upstash/context7-mcp"
+      ],
+      "optionalEnv": [
+        "CONTEXT7_API_KEY"
+      ],
+      "officialSource": "https://context7.com/docs/resources/developer"
+    },
+    "tavily": {
+      "transport": "stdio",
+      "command": "npx",
+      "args": [
+        "-y",
+        "tavily-mcp@latest"
+      ],
+      "requiredEnv": [
+        "TAVILY_API_KEY"
+      ],
+      "officialSource": "https://github.com/tavily-ai/tavily-mcp"
+    },
+    "postman": {
+      "transport": "streamable-http",
+      "url": "https://mcp.postman.com/mcp",
+      "auth": "oauth",
+      "officialSource": "https://learning.postman.com/docs/reference/postman-api/postman-mcp-server/postman-mcp-remote-server/"
+    },
+    "sentry": {
+      "transport": "streamable-http",
+      "url": "https://mcp.sentry.dev/mcp",
+      "auth": "oauth",
+      "officialSource": "https://mcp.sentry.dev/"
+    },
+    "vercel": {
+      "transport": "streamable-http",
+      "url": "https://mcp.vercel.com",
+      "auth": "oauth",
+      "officialSource": "https://vercel.com/docs/agent-resources/vercel-mcp"
+    },
+    "notion": {
+      "transport": "streamable-http",
+      "url": "https://mcp.notion.com/mcp",
+      "auth": "oauth",
+      "officialSource": "https://developers.notion.com/guides/mcp/get-started-with-mcp"
+    },
+    "atlassian": {
+      "transport": "streamable-http",
+      "url": "https://mcp.atlassian.com/v1/mcp/authv2",
+      "auth": "oauth",
+      "officialSource": "https://developer.atlassian.com/cloud/rovo-mcp/guides/getting-started/"
+    },
+    "github": {
+      "transport": "streamable-http",
+      "url": "https://api.githubcopilot.com/mcp/",
+      "auth": "oauth",
+      "notes": [
+        "En Copilot CLI, preferir el servidor GitHub integrado.",
+        "Para acceso de solo lectura, evaluar el endpoint /mcp/readonly."
+      ],
+      "officialSource": "https://github.com/github/github-mcp-server/blob/main/docs/remote-server.md"
+    },
+    "slack": {
+      "transport": "streamable-http",
+      "url": "https://mcp.slack.com/mcp",
+      "auth": "oauth",
+      "notes": [
+        "Requiere una aplicación de Slack publicada o distribuida internamente.",
+        "El servidor oficial no admite SSE ni Dynamic Client Registration."
+      ],
+      "officialSource": "https://docs.slack.dev/ai/slack-mcp-server/"
+    },
+    "memory": {
+      "transport": "stdio",
+      "command": "npx",
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-memory"
+      ],
+      "env": {
+        "MEMORY_FILE_PATH": "${MCP_MEMORY_FILE_PATH}"
+      },
+      "notes": [
+        "MCP_MEMORY_FILE_PATH debe ser una ruta absoluta fuera del repositorio.",
+        "Es una implementación de referencia; no asumir garantías de producción."
+      ],
+      "officialSource": "https://github.com/modelcontextprotocol/servers"
+    }
+  }
+}

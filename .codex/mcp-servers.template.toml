@@ -1,0 +1,175 @@
+# =============================================================================
+# PLANTILLA DE SERVIDORES MCP PARA CODEX
+# =============================================================================
+# Este archivo es una muestra sanitizada y Codex no lo carga automáticamente.
+# Copia únicamente los bloques necesarios a .codex/config.toml y cambia
+# enabled a true cuando hayas instalado y configurado cada servidor.
+#
+# Reglas de seguridad:
+# - Nunca escribas tokens, API keys, contraseñas ni cadenas de conexión aquí.
+# - env_vars y bearer_token_env_var contienen nombres de variables, no valores.
+# - Conserva las credenciales en el mecanismo seguro indicado por cada servidor.
+# - Para bases de datos, usa una cuenta de solo lectura y privilegio mínimo sobre
+#   un entorno no productivo o una réplica sanitizada.
+# - Valida cada integración de forma funcional antes de declararla conectada.
+#
+# Todos los servidores están deshabilitados para que copiar la plantilla completa
+# no inicie procesos, abra OAuth ni acceda a servicios por accidente.
+
+# =============================================================================
+# NOTION: SERVIDOR REMOTO OFICIAL CON OAUTH
+# =============================================================================
+[mcp_servers.notion]
+url = 'https://mcp.notion.com/mcp'
+auth = 'oauth'
+startup_timeout_sec = 30
+tool_timeout_sec = 120
+enabled = false
+required = false
+default_tools_approval_mode = 'writes'
+
+# Explicación del bloque:
+# - Usa el servidor remoto oficial de Notion; no requiere un proceso local.
+# - Después de habilitarlo, ejecuta codex mcp login notion para autorizar OAuth.
+# - El acceso final queda limitado por los permisos otorgados en Notion.
+
+# =============================================================================
+# TAVILY: BÚSQUEDA Y EXTRACCIÓN WEB MEDIANTE OAUTH
+# =============================================================================
+[mcp_servers.tavily]
+url = 'https://mcp.tavily.com/mcp/'
+auth = 'oauth'
+startup_timeout_sec = 30
+tool_timeout_sec = 120
+enabled = false
+required = false
+default_tools_approval_mode = 'writes'
+
+# Explicación del bloque:
+# - Se interpreta tabity como Tavily, que es el nombre correcto del servicio.
+# - Después de habilitarlo, ejecuta codex mcp login tavily para autorizar OAuth.
+# - OAuth evita incluir la API key en la URL, el archivo o el historial del shell.
+
+# =============================================================================
+# CONTEXT7: DOCUMENTACIÓN TÉCNICA ACTUALIZADA
+# =============================================================================
+[mcp_servers.context7]
+url = 'https://mcp.context7.com/mcp'
+bearer_token_env_var = 'CONTEXT7_API_KEY'
+startup_timeout_sec = 30
+tool_timeout_sec = 120
+enabled = false
+required = false
+default_tools_approval_mode = 'writes'
+
+# Explicación del bloque:
+# - CONTEXT7_API_KEY es opcional; permite límites mayores que el acceso anónimo.
+# - Codex obtiene su valor del entorno y lo envía como Authorization Bearer.
+# - Si no usarás una API key, elimina bearer_token_env_var antes de habilitarlo.
+
+# =============================================================================
+# POSTMAN: SERVIDOR REMOTO OFICIAL CON OAUTH
+# =============================================================================
+[mcp_servers.postman]
+url = 'https://mcp.postman.com/minimal'
+auth = 'oauth'
+startup_timeout_sec = 30
+tool_timeout_sec = 120
+enabled = false
+required = false
+default_tools_approval_mode = 'writes'
+
+# Explicación del bloque:
+# - minimal expone el conjunto reducido de herramientas y es el inicio recomendado.
+# - Usa https://mcp.postman.com/code para Code mode o
+#   https://mcp.postman.com/mcp para Full mode.
+# - Después de habilitarlo, ejecuta codex mcp login postman para autorizar OAuth.
+
+# =============================================================================
+# ORACLE DATABASE: SERVIDOR OFICIAL INCLUIDO EN ORACLE SQLcl
+# =============================================================================
+[mcp_servers.oracle]
+command = '<RUTA_SQLCL>\bin\sql.exe'
+args = ['-mcp']
+env_vars = ['TNS_ADMIN']
+startup_timeout_sec = 30
+tool_timeout_sec = 120
+enabled = false
+required = false
+default_tools_approval_mode = 'writes'
+
+# Explicación del bloque:
+# - Reemplaza RUTA_SQLCL por la instalación local de Oracle SQLcl.
+# - SQLcl usa conexiones guardadas; no agregues credenciales a esta plantilla.
+# - TNS_ADMIN solo se reenvía si ya existe en el entorno que inicia Codex.
+# - Requiere Oracle SQLcl y una versión de Java compatible con esa instalación.
+
+# =============================================================================
+# POSTGRESQL: SERVIDOR OFICIAL DE MICROSOFT
+# =============================================================================
+[mcp_servers.postgres]
+command = 'npx'
+args = ['-y', '@microsoft/postgres-mcp', 'run']
+startup_timeout_sec = 30
+tool_timeout_sec = 120
+enabled = false
+required = false
+default_tools_approval_mode = 'writes'
+
+# Explicación del bloque:
+# - Requiere Node.js y npx disponibles en PATH.
+# - La opción recomendada es crear un perfil y guardar la contraseña en el
+#   administrador de credenciales del sistema operativo, fuera de este archivo.
+# - Configura access_mode como ro y usa también un rol de base de datos de solo
+#   lectura; ambas defensas son independientes.
+
+# =============================================================================
+# MYSQL: SERVIDOR DE ORACLE PARA MYSQL AI Y MYSQL HEATWAVE
+# =============================================================================
+[mcp_servers.mysql]
+command = 'uvx'
+args = ['oracle.mysql-mcp-server']
+env_vars = ['MYSQL_MCP_CONFIG', 'OCI_CONFIG_PROFILE']
+startup_timeout_sec = 30
+tool_timeout_sec = 120
+enabled = false
+required = false
+default_tools_approval_mode = 'writes'
+
+# Explicación del bloque:
+# - Requiere uv y uvx disponibles en PATH.
+# - MYSQL_MCP_CONFIG debe apuntar a un JSON externo con las conexiones MySQL.
+# - Ese JSON puede contener credenciales: mantenlo fuera del repositorio o
+#   explícitamente ignorado y no permitas que el agente lo abra.
+# - Oracle lo publica como prueba de concepto y no lo recomienda para producción.
+
+# =============================================================================
+# SQL SERVER: SQL MCP SERVER BASADO EN DATA API BUILDER
+# =============================================================================
+[mcp_servers.sqlserver]
+command = 'dab'
+args = ['start', '--mcp-stdio', 'role:<ROL_DAB>', '--loglevel', 'error', '--config', '<RUTA_DAB_CONFIG>']
+env_vars = ['MSSQL_CONNECTION_STRING']
+startup_timeout_sec = 30
+tool_timeout_sec = 120
+enabled = false
+required = false
+default_tools_approval_mode = 'writes'
+
+# Explicación del bloque:
+# - Requiere Data API builder 1.7 o posterior; se recomienda la versión 2.x actual.
+# - Reemplaza ROL_DAB por un rol definido y RUTA_DAB_CONFIG por el archivo de
+#   configuración del servidor.
+# - El archivo de DAB debe referenciar MSSQL_CONNECTION_STRING desde el entorno;
+#   no escribas la cadena de conexión real en esta plantilla.
+# - Habilita MCP en la sección runtime del archivo de DAB antes de usar stdio.
+
+# =============================================================================
+# ACTIVACIÓN Y VALIDACIÓN
+# =============================================================================
+# 1. Copia a .codex/config.toml solo los bloques que realmente utilizarás.
+# 2. Reemplaza los marcadores entre < > y configura las variables fuera del repo.
+# 3. Cambia enabled a true para un único servidor por vez.
+# 4. Para servidores OAuth, ejecuta codex mcp login <nombre>.
+# 5. Verifica la configuración con codex mcp get <nombre> y codex mcp list.
+# 6. Abre una sesión nueva de Codex y realiza una llamada de lectura controlada.

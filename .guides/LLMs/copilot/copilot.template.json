@@ -1,0 +1,49 @@
+{
+  "mcpServers": {
+    "playwright": {
+      "command": "npx",
+      "args": [
+        "@playwright/mcp@latest"
+      ]
+    },
+    "postgres": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-postgres",
+        "postgresql://user:password@localhost:5432/mydb"
+      ]
+    },
+    "atlassian": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "mcp-remote",
+        "https://mcp.atlassian.com/v1/mcp/authv2"
+      ]
+    },
+    "atlassian-browser": {
+      "type": "sse",
+      "url": "https://mcp.atlassian.com/v1/sse"
+    },
+    "openapi": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@ivotoby/openapi-mcp-server",
+        "--api-base-url",
+        "https://api.tu-proyecto.com",
+        "--openapi-spec",
+        "C:\\Ruta\\a\\tu\\proyecto\\mi-api.json"
+      ]
+    },
+    "filesystem": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-filesystem",
+        "./"
+      ]
+    }
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "mcpServers": {
+    "atlassian": {
+      "type": "streamable-http",
+      "url": "https://mcp.atlassian.com/v1/mcp/authv2"
+    },
+    "playwright": {
+      "type": "stdio",
+      "command": "npx",
+      "args": [
+        "-y",
+        "@playwright/mcp@latest",
+        "--caps",
+        "vision,pdf",
+        "--timeout-action",
+        "10000",
+        "--timeout-navigation",
+        "30000",
+        "--isolated"
+      ]
+    }
+  }
+}

@@ -1,0 +1,14 @@
+# Normaliza los finales de línea al guardar en el repositorio.
+# Sin esto, quien clone en Mac o Linux ve todos los archivos como
+# modificados sin haber tocado nada.
+* text=auto
+
+# Binarios: nunca se normalizan
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.pdf binary
+*.pptx binary
+*.xlsx binary
+*.docx binary

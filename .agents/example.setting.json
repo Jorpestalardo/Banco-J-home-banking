@@ -1,0 +1,47 @@
+{
+  "formatVersion": 1,
+  "_meta": {
+    "purpose": "Ejemplo portable de configuración del proyecto para AGY, Codex y GitHub Copilot.",
+    "autoLoaded": false,
+    "reviewedAt": "2026-08-24",
+    "warning": "Este archivo documenta convenciones compartidas; ningún cliente lo carga automáticamente."
+  },
+  "project": {
+    "language": "es",
+    "instructionsFile": "AGENTS.md",
+    "skillsDirectory": ".agents/skills",
+    "mcpCatalog": ".agents/catalog.mcp.json"
+  },
+  "clients": {
+    "agy": {
+      "skillsDirectory": ".agents/skills",
+      "userSettingsFile": "~/.gemini/antigravity-cli/settings.json",
+      "workspaceMcpFile": ".agents/mcp_config.json",
+      "mcpFormat": "JSON",
+      "remoteEndpointKey": "serverUrl"
+    },
+    "codex": {
+      "skillsDirectory": ".agents/skills",
+      "projectSettingsFile": ".codex/config.toml",
+      "workspaceMcpFile": ".codex/config.toml",
+      "mcpFormat": "TOML",
+      "remoteEndpointKey": "url"
+    },
+    "copilot": {
+      "skillsDirectory": ".agents/skills",
+      "workspaceMcpFiles": [
+        ".mcp.json",
+        ".github/mcp.json"
+      ],
+      "mcpFormat": "JSON",
+      "remoteEndpointKey": "url"
+    }
+  },
+  "defaults": {
+    "loadOnlyRequiredSkills": true,
+    "enableOnlyRequiredMcpServers": true,
+    "requireHumanConfirmationForExternalWrites": true,
+    "allowSecretsInRepository": false,
+    "secretPlaceholderSyntax": "${VARIABLE_NAME}"
+  }
+}

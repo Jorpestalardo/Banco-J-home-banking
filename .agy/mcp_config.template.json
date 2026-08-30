@@ -1,0 +1,120 @@
+{
+  "mcpServers": {
+
+    "atlassian": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "mcp-remote@latest",
+        "https://mcp.atlassian.com/v1/mcp"
+      ],
+      "env": {
+        "ATLASSIAN_API_TOKEN": "YOUR_ATLASSIAN_API_TOKEN"
+      }
+    },
+
+    "playwright": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-playwright"
+      ]
+    },
+
+    "notion": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-notion"
+      ],
+      "env": {
+        "NOTION_API_KEY": "YOUR_NOTION_API_KEY"
+      }
+    },
+
+    "context7": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@upstash/context7-mcp"
+      ]
+    },
+
+    "tavily": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "tavily-mcp@latest"
+      ],
+      "env": {
+        "TAVILY_API_KEY": "YOUR_TAVILY_API_KEY"
+      }
+    },
+
+    "postman": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@postman/mcp-server"
+      ],
+      "env": {
+        "POSTMAN_API_KEY": "YOUR_POSTMAN_API_KEY"
+      }
+    },
+
+    "postgresql": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-postgres",
+        "postgresql://YOUR_USER:YOUR_PASSWORD@YOUR_HOST:5432/YOUR_DATABASE"
+      ]
+    },
+
+    "mysql": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "mysql-mcp-server"
+      ],
+      "env": {
+        "MYSQL_HOST": "YOUR_HOST",
+        "MYSQL_PORT": "3306",
+        "MYSQL_USER": "YOUR_USER",
+        "MYSQL_PASSWORD": "YOUR_PASSWORD",
+        "MYSQL_DATABASE": "YOUR_DATABASE"
+      }
+    },
+
+    "sqlserver": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-mssql"
+      ],
+      "env": {
+        "MSSQL_HOST": "YOUR_HOST",
+        "MSSQL_PORT": "1433",
+        "MSSQL_USER": "YOUR_USER",
+        "MSSQL_PASSWORD": "YOUR_PASSWORD",
+        "MSSQL_DATABASE": "YOUR_DATABASE"
+      }
+    },
+
+    "oracle": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "oracle-mcp-server"
+      ],
+      "env": {
+        "ORACLE_HOST": "YOUR_HOST",
+        "ORACLE_PORT": "1521",
+        "ORACLE_USER": "YOUR_USER",
+        "ORACLE_PASSWORD": "YOUR_PASSWORD",
+        "ORACLE_SERVICE_NAME": "YOUR_SERVICE_NAME"
+      }
+    }
+
+  }
+}

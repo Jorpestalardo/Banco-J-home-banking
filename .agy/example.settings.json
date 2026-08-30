@@ -1,0 +1,14 @@
+{
+  "project.name": "Curso QA IA-Augmented",
+  "editor.formatOnSave": true,
+  "editor.tabSize": 2,
+  "files.trimTrailingWhitespace": true,
+  "files.insertFinalNewline": true,
+  "files.encoding": "utf8",
+  "search.exclude": {
+    "**/node_modules": true,
+    "**/.git": true,
+    "**/.claude": true,
+    "**/.agy": true
+  }
+}
