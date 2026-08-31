@@ -8,50 +8,6 @@
 
 ---
 
-> ## ⚠️ Antes que nada: este README no es el tuyo
->
-> Lo que estás leyendo describe **el repositorio del curso**. En cuanto creaste tu copia
-> desde la plantilla, dejó de ser cierto: tu repositorio ya no es un curso, es **el
-> repositorio de trabajo de tu proyecto**.
->
-> **Reescribilo.** No es un trámite: el README es lo primero que lee una persona que entra
-> al proyecto — y también lo primero que lee la IA cuando le pedís que se ubique. Si dice
-> que esto es un curso, vas a arrastrar ese malentendido a todo lo que generes.
->
-> Qué tiene que salir: el título, las referencias al curso, a las clases y a los alumnos,
-> la sección de contribución al repositorio original, y el pie de página. Qué tiene que
-> entrar: qué es tu proyecto, para qué sirve cada carpeta y cómo se trabaja acá.
->
-> **Pedíselo a tu asistente con algo así:**
->
-> ```text
-> Reescribí el README.md de este repositorio.
->
-> Contexto: este repositorio arrancó como la plantilla de un curso y el README todavía
-> describe el curso, no el proyecto. Hoy es el repositorio de trabajo de QA del proyecto
-> [NOMBRE DE TU PROYECTO], que [UNA LINEA SOBRE QUE HACE].
->
-> Antes de escribir nada, leé AGENTS.md, .context/ai-project-map.md y la estructura de
-> carpetas, y basate en lo que encuentres ahí, no en suposiciones.
->
-> Quiero que:
-> 1. Saques toda referencia al curso, a las clases, a los alumnos y a la contribución al
->    repositorio original, incluido el pie de página.
-> 2. Expliques qué es este repositorio hoy y para qué sirve cada carpeta.
-> 3. Mantengas los enlaces a las guías de .guides/, que siguen siendo válidos.
-> 4. Verifiques lo que afirmes: si decís que una carpeta está vacía, abrila primero.
->
-> Mostrame el resultado antes de guardarlo.
-> ```
->
-> **Y revisá lo que te devuelva antes de aceptarlo.** Es tu primer ejercicio del curso sin
-> que nadie te lo pida: leer un documento generado por IA y buscarle los errores. Empezá
-> por los que ya tiene este README —dice que `.context/` *"viene vacía"* y no es cierto—.
->
-> Cuando termines, borrá este aviso. Es lo único de este archivo que sí es del curso.
-
----
-
 ## 🎯 ¿Qué es este curso?
 
 Este repositorio contiene todo el material práctico, prompts y guías para el curso de **"Modernización del Testing con IA"**.
