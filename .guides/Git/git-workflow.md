@@ -33,7 +33,7 @@ El nombre sigue el patrón `tipo/ID-DEL-TICKET-descripcion-corta`:
 | **test/** | Casos de prueba o scripts | `test/QA-1150-regresion-pagos` |
 | **fix/** | Corrección de errores en docs | `fix/QA-1163-limite-freemium` |
 | **chore/** | Mantenimiento, orden, configuración | `chore/QA-1201-reordenar-carpetas` |
-| **feature/** | nuevo modulo, funcionalidad, creacion | `feature/QA-1201-mvp-1` |<
+| **feature/** | Nuevo modulo, funcionalidad, creación | `feature/QA-1201-mvp-1` |<
 
 **El ID del ticket es lo que más trabaja**: es el hilo que conecta el ticket, la rama, los
 commits y el cambio incorporado. Sin él, dentro de seis meses la respuesta a *"¿por qué este
@@ -109,7 +109,7 @@ El mensaje del commit debe explicar **QUÉ** hiciste, no solo decir "cambios".
 ### Estructura Recomendada:
 `[tipo]: [descripción breve]`
 
-*   **feat:** Algo nuevo (Feature).
+*   **feat:** Algo nuevo (feature).
 *   **fix:** Corrección.
 *   **docs:** Solo documentación.
 *   **style:** Formato (espacios, puntos y comas).
